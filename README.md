@@ -3,7 +3,7 @@ PRISSMA
 ### Context-Aware Adaptation for Linked Data
 
 
-[PRISSMA](http://wimmics.inria.fr/projects/prissma) PRISSMA is a presentation-level framework for [Linked Data](linkeddata.org) adaptation.
+[PRISSMA](http://wimmics.inria.fr/projects/prissma) is a presentation-level framework for [Linked Data](linkeddata.org) adaptation.
 ### Features
 
 * Declarative approach
