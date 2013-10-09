@@ -1,0 +1,19 @@
+@prefix : <http://example/> .
+@prefix fresnel: <http://www.w3.org/2004/09/fresnel#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+:foafGroup a fresnel:Group .
+
+:testlens a fresnel:Lens ;
+fresnel:classLensDomain foaf:Person ;
+fresnel:group :foafGroup ;
+fresnel:showProperties ( foaf:name 
+                         foaf:surname 
+                         foaf:depiction ) .
+
+:depictFormat a fresnel:Format ;
+              fresnel:propertyFormatDomain foaf:depiction ;
+              fresnel:label "Depiction: "^^xsd:string ;
+              fresnel:value fresnel:image;
+			  fresnel:group :foafGroup .

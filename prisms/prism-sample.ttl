@@ -1,0 +1,28 @@
+@prefix :        <http://example.org#> .
+@prefix prissma:  <http://ns.inria.fr/prissma/v2#> .
+@prefix geo:     <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix tl:      <http://purl.org/NET/c4dm/timeline.owl#> .
+@prefix foaf:    <http://xmlns.com/foaf/0.1/> .
+@prefix ao:      <http://purl.org/ontology/ao/core#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix fresnel:  <http://www.w3.org/2004/09/fresnel#> .
+
+:ctx0
+      a       prissma:Context ;
+      prissma:environment :env0 ;
+      prissma:user :usr0 .
+
+:env0
+      a       prissma:Environment ;
+      prissma:nearbyEntity
+              <http://anthony-2351.example.org> , <http://brigitte-4128.example.org> ,
+			   <http://charlotte-3232.example.org> ,  <http://rupert-2128.example.org> .
+
+:usr0
+      a       prissma:User ;
+      foaf:interest "fishing", "football", "baseball", "cinema", "computers" .
+
+:prism0
+      a       prissma:Prism ;
+      fresnel:purpose :ctx0 .
