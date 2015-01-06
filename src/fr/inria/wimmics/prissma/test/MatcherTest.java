@@ -390,12 +390,19 @@ public class MatcherTest {
 		assertEquals(expectedResult, prismURIs);
 	}
 	
-	
+	/**
+	 * Precision/recall validation campaign (test 5).
+	 */
 	@Test
 	public void testIOSearchAndDecompositionMultiplePrismsGEOSuccess(){
 		
-//		int INDEX = 0;
-		for (int INDEX = 8 ; INDEX < 10 ; INDEX++){
+		final int BOUNDARY = 25;
+		final int CTX_FILES_COUNT = 50;
+		
+		int truePos = 0, trueNeg = 0, 
+				falsePos = 0, falseNeg = 0;
+		
+		for (int INDEX = 0 ; INDEX < CTX_FILES_COUNT ; INDEX++){
 			
 			// set expected result first
 			String prism3URI = PrissmaProperties.DEFAULT + "prism0";
@@ -442,11 +449,32 @@ public class MatcherTest {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			if (prismURIs.contains(targetPrismURI))
-				System.out.println("ctx" + INDEX +  " found");
-			else
-				System.err.println("ctx" + INDEX +  " NOT found");
+			
+			// contexts with id < 5 should match.
+			// contexts with id >=5 should not match.
+			if (prismURIs.contains(targetPrismURI) && INDEX < BOUNDARY){
+				truePos++;
+				System.out.println("ctx" + INDEX +  " matches");
+			}
+			else if (prismURIs.contains(targetPrismURI) && INDEX >= BOUNDARY ){
+				falsePos++;
+				System.err.println("ctx" + INDEX +  " matches");
+			}
+			else if (!prismURIs.contains(targetPrismURI) && INDEX < BOUNDARY ){
+				falseNeg++;
+				System.err.println("ctx" + INDEX +  " does not match");
+			}
+			else if (!prismURIs.contains(targetPrismURI) && INDEX >= BOUNDARY ){
+				trueNeg++;
+				System.out.println("ctx" + INDEX +  " does not match");
+			}
 		}
+		System.out.println("\nTrue Positives\tTrue Negatives\tFalse Positives\tFalse Negatives");
+		
+		System.out.println(truePos);
+		System.out.println(trueNeg);
+		System.out.println(falsePos);
+		System.out.println(falseNeg);
 	}
 	
 	

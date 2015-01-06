@@ -31,7 +31,7 @@ public class PrissmaProperties {
 	// edit operation costs
 	public static final double MAX = 1;
 	public static final double MIN = 0;
-	public static final double MISSING_CTXUNIT_ENTITY_COST = 0.2;
+	public static final double MISSING_CTXUNIT_ENTITY_COST = .4;
 	public static final double MISSING_CTXUNIT_STRING_COST = MISSING_CTXUNIT_ENTITY_COST;
 	
 	// decomposition constants
@@ -42,10 +42,10 @@ public class PrissmaProperties {
 	
 	// matcher parameters
 	// THRESHOLD = 0: perfect match needed to find prism
-	public static double THRESHOLD = .3;
-	public static final double DECAY_CONSTANT_TIME = 1;
-	public static final double DECAY_CONSTANT_GEO = 2;
-	public static final StringSimilarity STRING_SIMILARITY = StringSimilarity.LEVENSTHEIN;
+	public static double THRESHOLD = .7;
+	public static final double DECAY_CONSTANT_TIME = 10;
+	public static final double DECAY_CONSTANT_GEO = 5;
+	public static final StringSimilarity STRING_SIMILARITY = StringSimilarity.MONGE_ELKAN;
 	
 	// Properties constants
 	public static final String DEFAULT = "http://example.org#";
@@ -87,9 +87,9 @@ public class PrissmaProperties {
 	
 
 	// I/O
-	public static final String PRISM_PATH_TEST = "prisms/";
+	public static final String PRISM_PATH_TEST = "test-campaign/test5/full/prisms/";
 	public static final String ENTITIES_PATH_TEST = "entities/";
-	public static final String ACTUAL_CTX_PATH_TEST = "ctx/";
+	public static final String ACTUAL_CTX_PATH_TEST = "test-campaign/test5/full/ctx/";
 	public static final String INACTIVE_PRISMS_TEST = "inactive_prisms/";
 	
 	public static final String PRISM_PATH = "/sdcard/PRISSMA/prisms/";

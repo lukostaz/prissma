@@ -13,17 +13,17 @@
   </repositories>
   
   <dependencies>
-<!--   	<dependency>
+  	<dependency>
   		<groupId>org.apache.jena</groupId>
   		<artifactId>jena-core</artifactId>
   		<version>2.10.1</version>
-  		 <exclusions>
+<!--   		 <exclusions>
                 <exclusion>
                         <groupId>xerces</groupId>
                         <artifactId>xercesImpl</artifactId>
                 </exclusion>
-        </exclusions>
-  	</dependency> -->
+        </exclusions> -->
+  	</dependency> 
 
   	
   	
@@ -103,5 +103,15 @@
   		<artifactId>commons-lang3</artifactId>
   		<version>3.1</version>
   	</dependency>
+  	
+  	<dependency>
+  		<groupId>simmetrics</groupId>
+  		<artifactId>simmetrics</artifactId>
+  		<version>1.6.2</version>
+  	</dependency>
+  	
+  	
+  	
+  	
   </dependencies>
 </project>
