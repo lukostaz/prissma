@@ -32,6 +32,9 @@ import java.util.Set;
 
 
 
+
+
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,12 +46,16 @@ import uk.ac.shef.wit.simmetrics.similaritymetrics.MongeElkan;
 
 import com.hp.hpl.jena.rdf.model.RDFNode;
 
+import edu.cmu.lti.jawjaw.pobj.POS;
 import edu.cmu.lti.lexical_db.ILexicalDatabase;
 import edu.cmu.lti.lexical_db.NictWordNet;
+import edu.cmu.lti.lexical_db.data.Concept;
+import edu.cmu.lti.ws4j.Relatedness;
 import edu.cmu.lti.ws4j.RelatednessCalculator;
 import edu.cmu.lti.ws4j.impl.Lin;
 import edu.cmu.lti.ws4j.impl.Path;
 import edu.cmu.lti.ws4j.impl.WuPalmer;
+import edu.cmu.lti.ws4j.util.WS4JConfiguration;
 import fr.inria.wimmics.prissma.selection.entities.ContextUnit;
 import fr.inria.wimmics.prissma.selection.entities.CtxUnitType;
 import fr.inria.wimmics.prissma.selection.entities.DecompItem;
@@ -57,6 +64,7 @@ import fr.inria.wimmics.prissma.selection.entities.ETSubgraphIsomorphism;
 import fr.inria.wimmics.prissma.selection.entities.Edge;
 import fr.inria.wimmics.prissma.selection.entities.EditOperation;
 import fr.inria.wimmics.prissma.selection.entities.EditOperationType;
+import fr.inria.wimmics.prissma.selection.entities.StringSimilarity;
 import fr.inria.wimmics.prissma.selection.exceptions.ContextUnitException;
 import fr.inria.wimmics.prissma.selection.utilities.ContextUnitConverter;
 
@@ -622,13 +630,16 @@ public class Matcher {
 						op.cost = PrissmaProperties.MAX - levenstheinSimilarity(inputStr, decompString); 
 						break;
 					case LIN:
-						op.cost = PrissmaProperties.MAX - lin.calcRelatednessOfWords(inputStr, decompString); 
+						op.cost = PrissmaProperties.MAX - 
+							semanticStringSimilarity(inputStr, decompString, StringSimilarity.LIN); 
 						break;
 					case WUPALMER:
-						op.cost = PrissmaProperties.MAX - wup.calcRelatednessOfWords(inputStr, decompString); 
+						op.cost = PrissmaProperties.MAX - 
+							semanticStringSimilarity(inputStr, decompString, StringSimilarity.WUPALMER); 
 						break;
 					case PATH:
-						op.cost = PrissmaProperties.MAX - path.calcRelatednessOfWords(inputStr, decompString); 
+						op.cost = PrissmaProperties.MAX - 
+							semanticStringSimilarity(inputStr, decompString, StringSimilarity.PATH); 
 						break;
 					default:
 						LOG.error("Similarity measure not supported");
@@ -648,6 +659,56 @@ public class Matcher {
 			
 			return isosub;
 		}
+
+
+
+	private double semanticStringSimilarity(String inputStr,
+			String decompString, StringSimilarity method) {
+
+		WS4JConfiguration.getInstance().setMFS(true);
+		
+		RelatednessCalculator rc = null;
+		switch (PrissmaProperties.STRING_SIMILARITY) {
+			case LIN:
+				rc = new Lin(db);
+				break;
+			case WUPALMER:
+				rc = new WuPalmer(db);
+				break;
+			case PATH:
+				rc = new Path(db); 
+				break;
+			default:
+				LOG.error("Similarity measure not supported");
+				return -1;
+		}
+		List<POS[]> posPairs = rc.getPOSPairs();
+		double maxScore = -1D;
+
+		for (POS[] posPair : posPairs) {
+			List<Concept> synsets1 = (List<Concept>) db.getAllConcepts(inputStr,
+					posPair[0].toString());
+			List<Concept> synsets2 = (List<Concept>) db.getAllConcepts(decompString,
+					posPair[1].toString());
+
+			for (Concept synset1 : synsets1) {
+				for (Concept synset2 : synsets2) {
+					Relatedness relatedness = rc.calcRelatednessOfSynset(
+							synset1, synset2);
+					double score = relatedness.getScore();
+					if (score > maxScore) {
+						maxScore = score;
+					}
+				}
+			}
+		}
+
+		if (maxScore == -1D) {
+			maxScore = 0.0;
+		}
+
+		return maxScore;
+	}
 
 
 
