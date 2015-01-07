@@ -670,13 +670,13 @@ public class Matcher {
 		RelatednessCalculator rc = null;
 		switch (PrissmaProperties.STRING_SIMILARITY) {
 			case LIN:
-				rc = new Lin(db);
+				rc = lin;
 				break;
 			case WUPALMER:
-				rc = new WuPalmer(db);
+				rc = wup;
 				break;
 			case PATH:
-				rc = new Path(db); 
+				rc = path;
 				break;
 			default:
 				LOG.error("Similarity measure not supported");

@@ -45,7 +45,7 @@ public class PrissmaProperties {
 	public static double THRESHOLD = .9;
 	public static final double DECAY_CONSTANT_TIME = 10;
 	public static final double DECAY_CONSTANT_GEO = 5;
-	public static final StringSimilarity STRING_SIMILARITY = StringSimilarity.PATH;
+	public static final StringSimilarity STRING_SIMILARITY = StringSimilarity.MONGE_ELKAN;
 	
 	// Properties constants
 	public static final String DEFAULT = "http://example.org#";
@@ -87,9 +87,9 @@ public class PrissmaProperties {
 	
 
 	// I/O
-	public static final String PRISM_PATH_TEST = "test-campaign/test5/full/prisms/";
+	public static final String PRISM_PATH_TEST = "test-campaign/test6/prisms/";
 	public static final String ENTITIES_PATH_TEST = "entities/";
-	public static final String ACTUAL_CTX_PATH_TEST = "test-campaign/test5/full/ctx/";
+	public static final String ACTUAL_CTX_PATH_TEST = "test-campaign/test6/ctx/";
 	public static final String INACTIVE_PRISMS_TEST = "inactive_prisms/";
 	
 	public static final String PRISM_PATH = "/sdcard/PRISSMA/prisms/";
