@@ -20,5 +20,5 @@
 package fr.inria.wimmics.prissma.selection.entities;
 
 public enum StringSimilarity {
-	JARO, MONGE_ELKAN, JARO_WINKLER, LEVENSTHEIN
+	JARO, MONGE_ELKAN, JARO_WINKLER, LEVENSTHEIN, LIN, WUPALMER, PATH
 }

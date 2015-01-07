@@ -31,7 +31,7 @@ public class PrissmaProperties {
 	// edit operation costs
 	public static final double MAX = 1;
 	public static final double MIN = 0;
-	public static final double MISSING_CTXUNIT_ENTITY_COST = .4;
+	public static final double MISSING_CTXUNIT_ENTITY_COST = 1;
 	public static final double MISSING_CTXUNIT_STRING_COST = MISSING_CTXUNIT_ENTITY_COST;
 	
 	// decomposition constants
@@ -42,10 +42,10 @@ public class PrissmaProperties {
 	
 	// matcher parameters
 	// THRESHOLD = 0: perfect match needed to find prism
-	public static double THRESHOLD = .7;
+	public static double THRESHOLD = .9;
 	public static final double DECAY_CONSTANT_TIME = 10;
 	public static final double DECAY_CONSTANT_GEO = 5;
-	public static final StringSimilarity STRING_SIMILARITY = StringSimilarity.MONGE_ELKAN;
+	public static final StringSimilarity STRING_SIMILARITY = StringSimilarity.PATH;
 	
 	// Properties constants
 	public static final String DEFAULT = "http://example.org#";

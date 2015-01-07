@@ -31,6 +31,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,9 +43,14 @@ import uk.ac.shef.wit.simmetrics.similaritymetrics.MongeElkan;
 
 import com.hp.hpl.jena.rdf.model.RDFNode;
 
+import edu.cmu.lti.lexical_db.ILexicalDatabase;
+import edu.cmu.lti.lexical_db.NictWordNet;
+import edu.cmu.lti.ws4j.RelatednessCalculator;
+import edu.cmu.lti.ws4j.impl.Lin;
+import edu.cmu.lti.ws4j.impl.Path;
+import edu.cmu.lti.ws4j.impl.WuPalmer;
 import fr.inria.wimmics.prissma.selection.entities.ContextUnit;
 import fr.inria.wimmics.prissma.selection.entities.CtxUnitType;
-import fr.inria.wimmics.prissma.selection.entities.StringSimilarity;
 import fr.inria.wimmics.prissma.selection.entities.DecompItem;
 import fr.inria.wimmics.prissma.selection.entities.Decomposition;
 import fr.inria.wimmics.prissma.selection.entities.ETSubgraphIsomorphism;
@@ -67,6 +73,15 @@ public class Matcher {
 	public Set<Edge> inputGraphEdges;
 	
 	private double currentMinCost;
+	
+	
+	/** Semantic Similarity for Strings*/
+	private static ILexicalDatabase db = new NictWordNet();
+    private static RelatednessCalculator lin = new Lin(db);
+    private static RelatednessCalculator wup = new WuPalmer(db);
+    private static RelatednessCalculator path = new Path(db);
+	
+	
 	
 	private  Logger LOG = LoggerFactory.getLogger(Matcher.class);
 	
@@ -606,6 +621,15 @@ public class Matcher {
 					case LEVENSTHEIN:
 						op.cost = PrissmaProperties.MAX - levenstheinSimilarity(inputStr, decompString); 
 						break;
+					case LIN:
+						op.cost = PrissmaProperties.MAX - lin.calcRelatednessOfWords(inputStr, decompString); 
+						break;
+					case WUPALMER:
+						op.cost = PrissmaProperties.MAX - wup.calcRelatednessOfWords(inputStr, decompString); 
+						break;
+					case PATH:
+						op.cost = PrissmaProperties.MAX - path.calcRelatednessOfWords(inputStr, decompString); 
+						break;
 					default:
 						LOG.error("Similarity measure not supported");
 						op.cost = 1;
@@ -658,6 +682,7 @@ public class Matcher {
 		return sim;
 	}
 	
+
 	
 	
 	/**
