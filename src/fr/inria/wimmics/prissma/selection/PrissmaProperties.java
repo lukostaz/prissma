@@ -42,7 +42,7 @@ public class PrissmaProperties {
 	
 	// matcher parameters
 	// THRESHOLD = 0: perfect match needed to find prism
-	public static double THRESHOLD = .9;
+	public static double THRESHOLD = .6;
 	public static final double DECAY_CONSTANT_TIME = 10;
 	public static final double DECAY_CONSTANT_GEO = 5;
 	public static final StringSimilarity STRING_SIMILARITY = StringSimilarity.MONGE_ELKAN;
@@ -87,9 +87,9 @@ public class PrissmaProperties {
 	
 
 	// I/O
-	public static final String PRISM_PATH_TEST = "test-campaign/test6/prisms/";
+	public static final String PRISM_PATH_TEST = "test-campaign/test6/speed/prisms/";
 	public static final String ENTITIES_PATH_TEST = "entities/";
-	public static final String ACTUAL_CTX_PATH_TEST = "test-campaign/test6/ctx/";
+	public static final String ACTUAL_CTX_PATH_TEST = "test-campaign/test6/speed/ctx/";
 	public static final String INACTIVE_PRISMS_TEST = "inactive_prisms/";
 	
 	public static final String PRISM_PATH = "/sdcard/PRISSMA/prisms/";

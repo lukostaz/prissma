@@ -480,6 +480,39 @@ public class MatcherTest {
 	
 	
 	
+	@Test
+	public void testSpeedStrings(){
+		
+		Decomposer decomposer = new Decomposer();
+        Decomposition decomp = new Decomposition();
+        Model inputPrism = ModelFactory.createDefaultModel();
+
+        // decompose
+        InputStream in = FileManager.get().open( PrissmaProperties.PRISM_PATH_TEST + "prism15.ttl" );
+        if (in != null) {
+            inputPrism.read(in, null,  "TURTLE");
+            decomp = decomposer.decompose(inputPrism, decomp);
+        }
+
+
+        // read input ctx
+        Model actualCtx = ModelFactory.createDefaultModel();
+        InputStream inCtx = FileManager.get().open( PrissmaProperties.ACTUAL_CTX_PATH_TEST + "ctx0.ttl" );
+        if (inCtx != null) {
+            actualCtx.read(inCtx, null,  "TURTLE");
+        }
+
+        // search for actual ctx.
+        Matcher testMatcher = new Matcher(decomp);
+        RDFNode ctxRoot = ContextUnitConverter.getRootCtxNode(actualCtx);
+        ctxRoot = ContextUnitConverter.switchToClasses(ctxRoot, decomp);
+        long t0 = System.currentTimeMillis();
+        testMatcher.search(ctxRoot);
+        long t1 = System.currentTimeMillis();
+        System.out.println( "PRISSMA search Done in "+(t1-t0)+" msec." );
+	}
+	
+	
 	
 	
 	
