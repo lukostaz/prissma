@@ -2,21 +2,182 @@ PRISSMA
 ===========
 ### Context-Aware Adaptation for Linked Data
 
-
 [PRISSMA](http://wimmics.inria.fr/projects/prissma) is a presentation-level framework for [Linked Data](http://linkeddata.org) adaptation.
-### Features
 
-* Declarative approach
-* Domain Independence
-* Standard Semantic Web Languages
-* Context Awareness
-* Ready for Multimodality
+It is a Java rendering engine for [RDF](http://www.w3.org/TR/rdf11-primer/) that selects the most appropriate presentation of RDF triples according to [mobile context](http://en.wikipedia.org/wiki/Context_awareness).
 
+PRISSMA is compatible with the [Fresnel vocabulary](http://www.w3.org/2005/04/fresnel-info/manual/) and is based on a graph edit distance algorithm that finds optimal error-tolerant subgraph isomorphisms between RDF context graphs.
 
-The PRISSMA presentation-level vocabulary namespace document is available at [here](http://ns.inria.fr/prissma). 
+PRISSMA is optimized for Android platforms, but can be used in regular Java Projects as well.
 
 
-### Installation
+# Installation
 
 PRISSMA is a Java library, optimized for Android applications.
+
+## Minimum Requirements
+
++ Java 1.6
++ Android 4.2.2
+
+## Download
+
+Download [PRISSMA-1.0.0.jar](https://github.com/lukostaz/prissma/blob/master/PRISSMA-1.0.jar) and add it to your Java build path.
+
+## Check out sources
+
+	git clone git@github.com:lukostaz/prissma.git
+
+
+
+# Designing Prisms
+
+Prisms are context-aware presentation metadata for Linked Data visualization based on Fresnel and PRISSMA.
+
+Prisms can be created manually, or with [PRISSMA Studio](http://luca.costabello.info/prissma-studio/).
+
+## Anatomy of a Prism
+
+Prism to style a `dbpedia:Museum` when a user is walking in Paris.
+
+First, define the Prism general information:	
+```turtle
+:museumPrism a prissma:Prism ;
+   fresnel:purpose :walkingInParis ;
+   fresnel:stylesheetLink  <style.css>.
+```
+
+Add some Fresnel Lenses:
+```turtle
+:museumlens a fresnel:Lens;
+   fresnel:group :museumPrism;
+   fresnel:classLensDomain dbpedia:Museum;
+   fresnel:showProperties (  
+                     dbpprop:location 
+                     dbpprop:publictransit 
+                     ex:telephone
+                     ex:openingHours
+                     ex:ticketPrice ) .
+```
+
+Add Fresnel styling metadata:
+
+```turtle
+:addressFormat a fresnel:Format ;
+   fresnel:group :museumPrism ;
+   fresnel:propertyFormatDomain 
+                     dbpprop:location ;
+   fresnel:label "Address" ;
+   fresnel:labelStyle 
+       "css-class1"^^fresnel:styleClass ;
+   fresnel:valueStyle 
+       "css-class2"^^fresnel:styleClass .
+```
+
+Finally, define a `prissma:Context` entity with the [PRISSMA vocabulary](http://ns.inria.fr/prissma/v2/prissma_v2.html):
+```turtle
+# PRISSMA context description
+:walkingInParisArtLover a prissma:Context ;
+   prissma:user :artLover ; 
+   prissma:environment :parisWalking .
+    
+:artLover a prissma:User ;
+   foaf:interest "art".
+
+:parisWalking a prissma:Environment ;
+   prissma:poi :paris ;
+   prissma:motion "walking" .
+	
+:paris geo:lat "48.8567" ;
+   geo:long "2.3508" ;
+   prissma:radius "5000" .
+```
+Save the Prism locally, and store it in the Decomposition structure as explained below.
+
+
+
+# API Overview
+
+## Step 1: Decomposing Prisms
+
+```java
+// Instantiate a decomposer
+Decomposer decomposer = new Decomposer();
+// The Decomposition is the shared data structure for Prisms
+Decomposition decomp = new Decomposition();
+
+// The inputPrism Jena Model is the Prism read from local repository
+Model inputPrism = ModelFactory.createDefaultModel();
+
+// Get the path of the Prism local repository on Android devices.
+// If executed on desktop environment p is a regular file path string.
+String p = Environment.getExternalStorageDirectory().getAbsolutePath();
+InputStream in = FileManager.get().open( p + "/PRISSMA/prisms/prism.ttl" );
+
+// Decompose the Prism
+if (in != null) {
+    inputPrism.read(in, null,  "TURTLE");
+    decomp = decomposer.decompose(inputPrism, decomp);
+}
+
+```
+
+## Step 2: Running the search algorithm
+
+```java
+// Read input context
+Model actualCtx = ModelFactory.createDefaultModel();
+InputStream inCtx = FileManager.get().open( p + "/PRISSMA/ctx/ctx1.ttl" );
+if (inCtx != null) {
+    actualCtx.read(inCtx, null,  "TURTLE");
+}
+
+// Instantiate an error-tolerant matcher with a decomposition
+Matcher matcher = new Matcher(decomp);
+// get the prissma:Context element, i.e. the root element of input context
+RDFNode ctxRoot = ContextUnitConverter.getRootCtxNode(actualCtx);
+// Covnert core PRISSMA entities to their PRISSMA classes
+ctxRoot = ContextUnitConverter.switchToClasses(ctxRoot, decomp);
+// Execute error-tolerant match against Prisms in the decomposition
+matcher.search(ctxRoot);
+
+```
+
+## Step 3: Rendering resources
+
+```java
+// inputResource is the desired RDF resource to display.
+Model prism = readPrismFromFS(matcher.results);
+Renderer r = new Renderer();
+String html = r.renderHTML(prism, inputResource, true);
+
+```
+
+
+# Publications
+
+
++ L. Costabello. Error-Tolerant RDF Subgraph Matching for Adaptive Presentation of Linked Data on Mobile. 11th Extended Semantic Web Conference (ESWC), 2014.
++ L. Costabello. PRISSMA, Towards Mobile Adaptive Presentation of the Web of Data. ISWC 2011 Doctoral Consortium, Bonn, Germany
+
+# Licence
+	
+    Copyright (C) 2013-2014 Luca Costabello, v1.0.0
+
+    This program is free software; you can redistribute it and/or modify it
+    under the terms of the GNU General Public License as published by the
+    Free Software Foundation; either version 2 of the License, or (at your
+    option) any later version.
+
+    This program is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+    or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
+    for more details.
+
+    You should have received a copy of the GNU General Public License along
+    with this program; if not, see <http://www.gnu.org/licenses/>.
+
+# Contacts
+Further details on the [PRISSMA Project Page](http://wimmics.inria.fr/projects/prissma/), or contact [Luca Costabello](http://luca.costabello.info) directly.
+
 
