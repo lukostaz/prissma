@@ -29,13 +29,20 @@ Check out sources:
 
 	$ git clone git@github.com:lukostaz/prissma.git
 
-PRISSMA depends on the [Simmetrics](https://github.com/Simmetrics/simmetrics) library, that is not available in Maven central. Simmetrics 1.6.2 is provided under `libs/`. You can install it in your local Maven repository:
+PRISSMA depends on the [Simmetrics](https://github.com/Simmetrics/simmetrics) and [WS4J](https://code.google.com/p/ws4j/) libraries, that are not available in Maven central. Simmetrics 1.6.2 and WS4J 1.0.1 are provided under `libs/`. You can install it in your local Maven repository:
 	
     $ mvn install:install-file \
           -Dfile=libs/simmetrics-1.6.2.jar \
           -DgroupId=simmetrics \
           -DartifactId=simmetrics \
           -Dversion=1.6.2 \
+          -Dpackaging=jar
+
+    $ mvn install:install-file \
+          -Dfile=libs/ws4j-1.0.1.jar \
+          -DgroupId=ws4j \
+          -DartifactId=ws4j \
+          -Dversion=1.0.1 \
           -Dpackaging=jar
 
 Build the project:
