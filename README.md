@@ -177,8 +177,8 @@ String html = r.renderHTML(prism, inputResource, true);
 # Publications
 
 
-+ L. Costabello. Error-Tolerant RDF Subgraph Matching for Adaptive Presentation of Linked Data on Mobile. 11th Extended Semantic Web Conference (ESWC), 2014.
-+ L. Costabello. PRISSMA, Towards Mobile Adaptive Presentation of the Web of Data. ISWC 2011 Doctoral Consortium, Bonn, Germany
++ L. Costabello. [Error-Tolerant RDF Subgraph Matching for Adaptive Presentation of Linked Data on Mobile](http://2014.eswc-conferences.org/sites/default/files/papers/paper_81.pdf). 11th Extended Semantic Web Conference (ESWC), 2014.
++ L. Costabello. [PRISSMA, Towards Mobile Adaptive Presentation of the Web of Data](http://iswc2011.semanticweb.org/fileadmin/iswc/Papers/DC_Proposals/70320273.pdf). ISWC 2011 Doctoral Consortium, Bonn, Germany
 
 # Licence
 	
