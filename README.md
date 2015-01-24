@@ -45,6 +45,17 @@ PRISSMA depends on the [Simmetrics](https://github.com/Simmetrics/simmetrics) an
           -Dversion=1.0.1 \
           -Dpackaging=jar
 
+PRISSMA depends on the `xerces-impl` Android-optimized version available [available here](http://elite.polito.it/index.php/research/downloads/182-jena-on-android-download). A copy of the library is available under `libs/`.
+Add it to local Maven repository:
+
+	$ mvn install:install-file \
+          -Dfile=libs/xercesImpl-repack.jar \
+          -DgroupId=xerces \
+          -DartifactId=xercesImpl-repack \
+          -Dversion=1.0.0 \
+          -Dpackaging=jar
+
+
 Build the project:
 	
     mvn package
