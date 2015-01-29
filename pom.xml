@@ -1,10 +1,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>PRISSMA</groupId>
+	<groupId>fr.inria.wimmics</groupId>
 	<artifactId>PRISSMA</artifactId>
 	<version>1.0.0</version>
+	<packaging>jar</packaging>
+	<name>Context-Aware Adaptation for Linked Data</name>
+	<url>https://github.com/lukostaz/prissma</url>
 
+
+	<!-- Fresnel engine repository -->
 	<repositories>
 		<repository>
 			<id>jfresnel-repository</id>
@@ -15,6 +20,7 @@
 
 	<dependencies>
 
+		<!-- Jena -->
 		<dependency>
 			<groupId>org.apache.jena</groupId>
 			<artifactId>jena-core</artifactId>
@@ -38,9 +44,30 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-
-
-
+	
+		<dependency>
+			<groupId>org.apache.jena</groupId>
+			<artifactId>jena-iri</artifactId>
+			<version>0.9.3</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>slf4j-api</artifactId>
+					<groupId>org.slf4j</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>slf4j-log4j12</artifactId>
+					<groupId>org.slf4j</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>log4j</artifactId>
+					<groupId>log4j</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+	
+	
+	
+		<!-- Fresnel -->
 		<dependency>
 			<groupId>fr.inria.jfresnel</groupId>
 			<artifactId>jfresnel-core</artifactId>
@@ -85,19 +112,7 @@
 			</exclusions>
 		</dependency>
 
-<!-- 		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-android</artifactId>
-			<version>1.7.10</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>slf4j-api</artifactId>
-					<groupId>org.slf4j</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency> -->
-
-
+		<!-- Time-related utilies -->
 		<dependency>
 			<groupId>joda-time</groupId>
 			<artifactId>joda-time</artifactId>
@@ -111,59 +126,41 @@
 		</dependency>
 
 
-
-		<!-- <dependency> <groupId>org.apache.commons</groupId> <artifactId>commons-math3</artifactId> 
-			<version>3.2</version> </dependency> -->
+		<!-- Apache commons -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 			<version>3.1</version>
 		</dependency>
 
+
+		<!-- String similarity metrics -->
 		<dependency>
 			<groupId>simmetrics</groupId>
 			<artifactId>simmetrics</artifactId>
 			<version>1.6.2</version>
 		</dependency>
 
+		<!-- Semantic string similarity measures -->
 		<dependency>
 			<groupId>ws4j</groupId>
 			<artifactId>ws4j</artifactId>
 			<version>1.0.1</version>
 		</dependency>
-	
+
+		<!-- Android-repackaged xerces. See http://elite.polito.it/index.php/research/downloads/182-jena-on-android-download -->
 		<dependency>
 			<groupId>xerces</groupId>
 			<artifactId>xercesImpl-repack</artifactId>
 			<version>1.0.0</version>
 		</dependency>
-	
-		
 
+
+		<!-- Logging -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-nop</artifactId>
 			<version>1.6.4</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.jena</groupId>
-			<artifactId>jena-iri</artifactId>
-			<version>0.9.3</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>slf4j-api</artifactId>
-					<groupId>org.slf4j</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>slf4j-log4j12</artifactId>
-					<groupId>org.slf4j</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>log4j</artifactId>
-					<groupId>log4j</groupId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 
 

@@ -27,7 +27,7 @@ Download [PRISSMA-1.0.0.jar](https://github.com/lukostaz/prissma/blob/master/PRI
 ## Build from Source
 Check out sources:
 
-	$ git clone git@github.com:lukostaz/prissma.git
+	$ git clone https://github.com/lukostaz/prissma.git
 
 PRISSMA depends on the [Simmetrics](https://github.com/Simmetrics/simmetrics) and [WS4J](https://code.google.com/p/ws4j/) libraries, that are not available in Maven central. Simmetrics 1.6.2 and WS4J 1.0.1 are provided under `libs/`. You can install it in your local Maven repository:
 	
@@ -56,9 +56,17 @@ Add it to local Maven repository:
           -Dpackaging=jar
 
 
-Build the project:
+Build and install the library in local Maven repository:
 	
-    mvn package
+    $ mvn install
+
+Add the following dependency in your `pom.xml`:
+
+	<dependency>
+        <groupId>fr.inria.wimmics</groupId>
+        <artifactId>PRISSMA</artifactId>
+        <version>1.0.0</version>
+    </dependency>
 
 
 # Designing Prisms
@@ -193,7 +201,7 @@ String html = r.renderHTML(prism, inputResource, true);
 
 # Licence
 	
-    Copyright (C) 2013-2014 Luca Costabello, v1.0.0
+    Copyright (C) 2013-2015 Luca Costabello, v1.0.0
 
     This program is free software; you can redistribute it and/or modify it
     under the terms of the GNU General Public License as published by the
@@ -209,5 +217,5 @@ String html = r.renderHTML(prism, inputResource, true);
     with this program; if not, see <http://www.gnu.org/licenses/>.
 
 # Contacts
-Further details on the [PRISSMA Project Page](http://wimmics.inria.fr/projects/prissma/), or contact [Luca Costabello](http://luca.costabello.info) directly.
+Further details on the [PRISSMA Project Page](http://wimmics.inria.fr/projects/prissma/), or contact [Luca Costabello](http://luca.costabello.info).
 
