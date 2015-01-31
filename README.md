@@ -137,7 +137,7 @@ Save the Prism locally, and store it in the Decomposition structure as explained
 
 # API Overview
 
-Make sure `config.properties` is in your buildpath and that it contains the desired search algorithm paramaters (e.g. [similarity threshold, cost of edit distance opertaions, etc](http://2014.eswc-conferences.org/sites/default/files/papers/paper_81.pdf)).
+Make sure `config.properties` is in your buildpath and that it contains the  search algorithm desired paramater values (e.g. [similarity threshold, cost of edit distance operations, etc](http://2014.eswc-conferences.org/sites/default/files/papers/paper_81.pdf)).
 
 ## Step 1: Decomposing Prisms
 
