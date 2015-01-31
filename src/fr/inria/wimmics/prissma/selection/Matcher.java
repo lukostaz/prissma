@@ -35,6 +35,9 @@ import java.util.Set;
 
 
 
+import org.apache.commons.configuration.Configuration;
+import org.apache.commons.configuration.ConfigurationException;
+import org.apache.commons.configuration.PropertiesConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -104,6 +107,52 @@ public class Matcher {
 		this.candidates = new HashMap<Integer, List<ETSubgraphIsomorphism>>();
 		this.winners = new HashMap<Integer, List<ETSubgraphIsomorphism>>();
 		this.results = new HashSet<URI>();
+		
+		// read params from property file
+		try {
+			Configuration config = new PropertiesConfiguration("config.properties");
+			PrissmaProperties.THRESHOLD = config.getDouble("threshold");
+			PrissmaProperties.MISSING_CTXUNIT_ENTITY_COST = config.getDouble("missing_ctxunit_entity_cost");
+			PrissmaProperties.MISSING_CTXUNIT_STRING_COST = config.getDouble("missing_ctxunit_string_cost");
+			PrissmaProperties.DECAY_CONSTANT_TIME = config.getDouble("decay_constant_time");
+			PrissmaProperties.DECAY_CONSTANT_GEO = config.getDouble("decay_constant_geo");
+			
+			switch (config.getString("string_similarity")) {
+			case "JARO":
+				PrissmaProperties.STRING_SIMILARITY = StringSimilarity.JARO; 
+				break;
+			case "JARO_WINKLER":
+				PrissmaProperties.STRING_SIMILARITY = StringSimilarity.JARO_WINKLER; 
+				break;	
+			case "MONGE_ELKAN":
+				PrissmaProperties.STRING_SIMILARITY = StringSimilarity.MONGE_ELKAN; 
+				break;
+			case "LEVENSTHEIN":
+				PrissmaProperties.STRING_SIMILARITY = StringSimilarity.LEVENSTHEIN; 
+				break;
+			case "LIN":
+				PrissmaProperties.STRING_SIMILARITY = StringSimilarity.LIN; 
+				break;
+			case "WUPALMER":
+				PrissmaProperties.STRING_SIMILARITY = StringSimilarity.WUPALMER; 
+				break;
+			case "PATH":
+				PrissmaProperties.STRING_SIMILARITY = StringSimilarity.PATH; 
+				break;
+			default:
+				LOG.error("Similarity measure not supported");
+				break;
+		}
+			
+			
+			
+			PrissmaProperties.ENTITIES_PATH = config.getString("fresnel_folder");
+		} catch (ConfigurationException e) {
+			LOG.error("Error reading property file {}", e.getMessage());
+		}
+	
+		
+		
 	}
 
 
