@@ -20,9 +20,6 @@ PRISSMA is a Java library, optimized for Android applications.
 + Java 1.6
 + Android 4.2.2
 
-## Download
-
-Download [PRISSMA-1.0.0.jar](https://github.com/lukostaz/prissma/blob/master/PRISSMA-1.0.0.jar) and add it to your Java build path.
 
 ## Build from Source
 Check out sources:
