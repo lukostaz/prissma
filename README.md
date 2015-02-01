@@ -28,6 +28,8 @@ Check out sources:
 
 PRISSMA depends on the [Simmetrics](https://github.com/Simmetrics/simmetrics) and [WS4J](https://code.google.com/p/ws4j/) libraries, that are not available in Maven central. Simmetrics 1.6.2 and WS4J 1.0.1 are provided under `libs/`. You can install it in your local Maven repository:
 	
+    $ cd prissma
+    
     $ mvn install:install-file \
           -Dfile=libs/simmetrics-1.6.2.jar \
           -DgroupId=simmetrics \
