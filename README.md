@@ -23,7 +23,7 @@ PRISSMA is a Java library, optimized for Android applications.
 ## Download
 The latest PRISSMA release is [v1.0.0](https://github.com/lukostaz/prissma/releases/tag/v1.0.0). Download it and add it to your build path.
 
-Make sure `config.properties` is in your build path and that it contains the  search algorithm desired paramater values (e.g. [similarity threshold, cost of edit distance operations, etc](http://2014.eswc-conferences.org/sites/default/files/papers/paper_81.pdf)).
+Make sure `config.properties` is included in your build path and that it contains the  parameter values needed by the search algorithm (e.g. [similarity threshold, cost of edit distance operations, etc](http://2014.eswc-conferences.org/sites/default/files/papers/paper_81.pdf)).
 
 
 ## Build from Source
@@ -141,7 +141,7 @@ Save the Prism locally, and store it in the Decomposition structure as explained
 
 # API Overview
 
-Make sure `config.properties` is in your build path and that it contains the  search algorithm desired parameter values (e.g. [similarity threshold, cost of edit distance operations, etc](http://2014.eswc-conferences.org/sites/default/files/papers/paper_81.pdf)).
+Make sure `config.properties` is included in your build path and that it contains the  parameters values needed by the search algorithm (e.g. [similarity threshold, cost of edit distance operations, etc](http://2014.eswc-conferences.org/sites/default/files/papers/paper_81.pdf)).
 
 ## Step 1: Decomposing Prisms
 
